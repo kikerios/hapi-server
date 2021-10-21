@@ -1,5 +1,4 @@
-const Hapi = require('hapi')
-
+const Hapi = require('@hapi/hapi')
 const config = require('../config')
 const plugins = require('./plugins')
 const routes = require('./routes')
@@ -15,14 +14,14 @@ const start = async (host, port) => {
   await server.start()
 
   server.events.on('response', (request) => {
-    logger.log(`${request.info.remoteAddress}: ${request.method.toUpperCase()} ${request.path} --> ${request.response.statusCode}`)
+    logger.info(`${request.info.remoteAddress}: ${request.method.toUpperCase()} ${request.path} --> ${request.response.statusCode}`)
   })
 
-  logger.log('Server running on %s', server.info.uri)
+  logger.info('Server running on %s', server.info.uri)
 }
 
 process.on('unhandledRejection', (err) => {
-  logger.log(err)
+  logger.info(err)
   process.exit(1)
 })
 
